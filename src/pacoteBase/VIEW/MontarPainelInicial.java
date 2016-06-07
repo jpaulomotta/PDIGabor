@@ -99,7 +99,7 @@ public class MontarPainelInicial  {
 		// TITLE PANEL
 		titlePanel = new JPanel();
 		titlePanel.setPreferredSize( new Dimension ( 0, 50 ) );
-		titlePanel.setBackground( Color.black );
+		titlePanel.setBackground( Color.white );
 
 		// OUTPUT PANEL
 		outputPanel = new JPanel();
@@ -108,7 +108,7 @@ public class MontarPainelInicial  {
 		outputPanelEsq = new JPanel();
 		outputPanelEsq.setPreferredSize( new Dimension ( 130, 0 ) );
 		outputPanelEsq.setLayout( new BoxLayout (outputPanelEsq, BoxLayout.Y_AXIS));
-		outputPanelEsq.setBackground( Color.black );
+		outputPanelEsq.setBackground( Color.white );
 
 		outputPanelCen = new JPanel();
 		outputPanelCen.setBackground( new Color ( 220, 220, 210 ) );
@@ -122,12 +122,12 @@ public class MontarPainelInicial  {
 		// BUTTON PANEL
 		buttonPanel = new JPanel();
 		buttonPanel.setPreferredSize( new Dimension ( 0, 50 ) );
-		buttonPanel.setBackground( Color.black );
+		buttonPanel.setBackground( Color.white );
 
 		// PANEL TITLE
 		JLabel titulo;
-		titulo = new JLabel( "FILTRO GABOR  -  ZOOM  -  OPERACAO MORFOLOGICA");
-		titulo.setForeground(Color.white);
+		titulo = new JLabel( "FILTRO GABOR  -  ZOOM REPLICAÇÃO PIXEL -  OPERACAO MORFOLÓGICA");
+		titulo.setForeground(Color.black);
 		titulo.setFont(new Font("Dialog", Font.BOLD, 25));
 		titlePanel.add(titulo);
 
@@ -262,7 +262,7 @@ public class MontarPainelInicial  {
 		acao1Panel.add( btGabor4 );
 	
 
-		acao1Panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Filtro WaveLength"));
+		acao1Panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Filtro Comprimento Onda"));
 
 		controlePanelGabor.add(acao1Panel);
 		controlePanelGabor.setVisible(false);

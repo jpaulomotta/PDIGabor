@@ -2,6 +2,7 @@ package pacoteBase.CONTROL;
 
 
 import pacoteBase.MODEL.GaborFiltro;
+import pacoteBase.MODEL.Morfologia;
 import pacoteBase.VIEW.*;
 import java.awt.Graphics;
 
@@ -73,14 +74,14 @@ public class ControlarAplicativo implements ActionListener {
 
 				char[][] temp = controleImagem.copiarImagem(imagemAtual);
 
-				imagemAtual = controleImagem.aplicaMorfologia(imagemAtual);
+				imagemAtual = Morfologia.aplicar(imagemAtual);
 				pnCenario.limpaPainelCen();
 				controleImagem.mostrarImagem(temp, desenhoCentro);
 				pnCenario.limpaPainelDir();
 			}
 
 			if (pnCenario.isNewImageSelected())
-				imagemAtual = controleImagem.aplicaMorfologia(imagemAtual);
+				imagemAtual = Morfologia.aplicar(imagemAtual);
 
 			pnCenario.limpaPainelDir();
 			controleImagem.mostrarImagem(imagemAtual, desenhoDireita);	
