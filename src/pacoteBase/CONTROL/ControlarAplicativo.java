@@ -75,7 +75,7 @@ public class ControlarAplicativo implements ActionListener {
 				
 				imagemAtual = controleImagem.aplicaMorfologia(imagemAtual);
 				pnCenario.limpaPainelCen();
-				controleImagem.mostrarImagemMatriz(temp, desenhoCentro);
+				controleImagem.mostrarImagem(temp, desenhoCentro);
 				pnCenario.limpaPainelDir();
 			}
 					
@@ -83,7 +83,7 @@ public class ControlarAplicativo implements ActionListener {
 					imagemAtual = controleImagem.aplicaMorfologia(imagemAtual);
 					
 					pnCenario.limpaPainelDir();
-					controleImagem.mostrarImagemMatriz(imagemAtual, desenhoDireita);	
+					controleImagem.mostrarImagem(imagemAtual, desenhoDireita);	
 				}	
 			
 	//	}
@@ -123,18 +123,7 @@ public class ControlarAplicativo implements ActionListener {
 				bufferedImage = (BufferedImage) new GaborFiltro(1, new double[] {Math.PI/0.75}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
 			}	
 			
-			controleImagem.mostrarImagemBuffer(bufferedImage, desenhoDireita);
-			
-			//***********************************************************
-			//controleImagem.criarImagemCinza(bufferedImage);
-			//imagemCinza = controleImagem.copiarImagem(imagemCinza, nLinImageInic, nColImageInic);
-			//controleImagem.mostrarImagemMatriz ( imagemCinza, nLinImageInic, nColImageInic, desenhoDir );
-			
-	
-			//criarImagemCinza ( bufferedImage );
-			
-		
-			
+			controleImagem.mostrarImagem(bufferedImage, desenhoDireita);	
 		}
 
 if (pnCenario.getbtGabor2() ==2){
@@ -156,7 +145,7 @@ if (pnCenario.getbtGabor2() ==2){
 				bufferedImage = (BufferedImage) new GaborFiltro(2, new double[] {Math.PI/0.75}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
 			}	
 			
-			controleImagem.mostrarImagemBuffer(bufferedImage, desenhoDireita);
+			controleImagem.mostrarImagem(bufferedImage, desenhoDireita);
 		}
 
 		
@@ -179,7 +168,7 @@ if (pnCenario.getbtGabor3() ==2){
 		bufferedImage = (BufferedImage) new GaborFiltro(3, new double[] {Math.PI/0.75}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
 	}	
 	
-	controleImagem.mostrarImagemBuffer(bufferedImage, desenhoDireita);
+	controleImagem.mostrarImagem(bufferedImage, desenhoDireita);
 }
 
 
@@ -202,8 +191,8 @@ if (pnCenario.getbtGabor4() ==2){
 		bufferedImage = (BufferedImage) new GaborFiltro(4, new double[] {Math.PI/0.75}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
 	}	
 	
-	controleImagem.mostrarImagemBuffer(bufferedImage, desenhoDireita);
-	//imagemAtual = 
+	controleImagem.mostrarImagem(bufferedImage, desenhoDireita);
+	imagemAtual = controleImagem.criarImagemCinza(bufferedImage);
 }
 
 		
@@ -274,11 +263,11 @@ if (pnCenario.getbtGabor4() ==2){
 		if ( nomeArquivoImagemDada != null ) {
 			controleImagem = new ControlarImagem( nomeArquivoImagemDada, desenhoCentro );
 			estadoDesenho  = true;
-			imagemAtual    = controleImagem.getImagemCinza();
+			imagemAtual    = controleImagem.criarImagemCinza(controleImagem.getImagemDada());
 
 			pnCenario.mudarBotoes();
 			pnCenario.limpaPainelDir();
-			controleImagem.mostrarImagemMatriz ( imagemAtual, desenhoDireita );
+			controleImagem.mostrarImagem ( imagemAtual, desenhoDireita );
 
 		}
 	}
@@ -292,7 +281,7 @@ if (pnCenario.getbtGabor4() ==2){
 			
 			imagemAtual = controleImagem.aplicaZoom(imagemAtual, percentageZoom);
 			pnCenario.limpaPainelCen();
-			controleImagem.mostrarImagemMatriz(temp, desenhoCentro);
+			controleImagem.mostrarImagem(temp, desenhoCentro);
 			pnCenario.limpaPainelDir();
 		}
 				
@@ -300,7 +289,7 @@ if (pnCenario.getbtGabor4() ==2){
 			imagemAtual = controleImagem.aplicaZoom(imagemAtual, percentageZoom);
 			
 			pnCenario.limpaPainelDir();
-			controleImagem.mostrarImagemMatriz(imagemAtual, desenhoDireita);
+			controleImagem.mostrarImagem(imagemAtual, desenhoDireita);
 		}
 			
 	}

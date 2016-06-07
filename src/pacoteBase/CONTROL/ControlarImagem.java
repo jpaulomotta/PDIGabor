@@ -12,7 +12,6 @@ import pacoteBase.MODEL.ImageUtils;
 
 public class ControlarImagem {
 	
-	public	char[][]      imagemCinza;
 	private int           nLinImagem;
 	private int           nColImagem;
 	private BufferedImage imagemDada;
@@ -26,19 +25,19 @@ public class ControlarImagem {
 	{
 		imagemDada = lerImagem ( nomeArquivoImagemDada );
 		if ( imagemDada != null ) {
-			mostrarImagemBuffer ( imagemDada, desenho );
-			criarImagemCinza ( imagemDada );
+			mostrarImagem ( imagemDada, desenho );
 		}
 	}
 
 	//*******************************************************************************************
 	// METODO PARA GERAR A IMAGEM RASTER EM NIVEIS DE CINZA A PARTIR DA IMAGEM BUFERIZADA COLORIDA
 
-	public void criarImagemCinza ( BufferedImage imagem ) 
+	public char[][] criarImagemCinza ( BufferedImage imagem ) 
 	{
 		int    x, y, r, g, b;
 		Raster imagemRasterEntrada;
 		char   valorSaida;
+		char[][] imagemCinza;
 
 		// DIMENSOES DA MATRIZ CINZA
 		nColImagem  = imagem.getWidth(null);
@@ -69,6 +68,8 @@ public class ControlarImagem {
 			
 			}
 		}
+		
+		return imagemCinza;
 	}
 	
 	
@@ -172,10 +173,7 @@ public class ControlarImagem {
 			}
 		}
 		
-		imagemCinza = copiarImagem(imagemZoom);
-		  
-		// retorna imagem
-		return ( imagemCinza );
+		return imagemZoom;
 	}
 	
 	
@@ -476,10 +474,7 @@ public class ControlarImagem {
 		
 		
 		
-		imagemCinza = copiarImagem(imagemMorfologia);
-		  
-		// retorna imagem
-		return ( imagemCinza );
+		return imagemMorfologia;
 	}
 
 	//******************************************************************************************
@@ -561,8 +556,8 @@ public class ControlarImagem {
 	
 	//*******************************************************************************************
 	// MOSTRAR IMAGEM BUFERIZADA
-
-	public void mostrarImagemBuffer  ( BufferedImage imagem,
+	/*
+	public void mostrarImagem  ( BufferedImage imagem,
 			                           Graphics      desenho 
 			                         )
 	{
@@ -583,21 +578,19 @@ public class ControlarImagem {
 		        		           sx, sy,  sx + imageWidth, sy + imageHeight, null );
 		    }
 		}
+	}*/
+
+	
+	
+	
+	public void mostrarImagem(BufferedImage imagemM, Graphics desenho)
+	{
+		desenho.drawImage( imagemM, 0, 0, imagemM.getWidth(), imagemM.getHeight(),  null );  
 	}
 
-	
-	
-	
-	//*******************************************************************************************
-	// MOSTRAR IMAGEM DO TIPO MATRIZ DE BYTES
-
-	public void mostrarImagemMatriz(char[][] imagemM, Graphics desenho)
+	public void mostrarImagem(char[][] imagemM, Graphics desenho)
 	{
-		BufferedImage imagemB;
-		int nLin = ImageUtils.getNLinhas(imagemM);
-		int nCol = ImageUtils.getNColunas(imagemM);
-		imagemB = transformarMatriz2Buffer ( imagemM );
-		desenho.drawImage( imagemB, 0, 0, nCol, nLin,  null );  
+		mostrarImagem(transformarMatriz2Buffer(imagemM), desenho); 
 	}
 	
 	
@@ -655,12 +648,11 @@ public class ControlarImagem {
 	
 	
 
-	//*******************************************************************************************
-	public char[][] getImagemCinza ( )
-	{
-		return ( imagemCinza );
+	
+	public BufferedImage getImagemDada() {
+		return imagemDada;
 	}
-
+	
 	//*******************************************************************************************
 	public int getNLin()
 	{
