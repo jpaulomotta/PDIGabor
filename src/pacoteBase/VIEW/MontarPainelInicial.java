@@ -74,6 +74,10 @@ public class MontarPainelInicial  {
 
 	private Graphics      desenhoCen;
 	private Graphics      desenhoDir;
+	
+	private final Color COR_FUNDO_TITULO = new Color(0x1D2C78, false);
+	private final Color COR_LETRA_TITULO = Color.white;
+	private final Color COR_FUNDO_BORDA = Color.white;
 
 	//*******************************************************************************************
 	public MontarPainelInicial( ControlarAplicativo controlePrograma )
@@ -99,7 +103,7 @@ public class MontarPainelInicial  {
 		// TITLE PANEL
 		titlePanel = new JPanel();
 		titlePanel.setPreferredSize( new Dimension ( 0, 50 ) );
-		titlePanel.setBackground( Color.white );
+		titlePanel.setBackground( COR_FUNDO_TITULO );
 
 		// OUTPUT PANEL
 		outputPanel = new JPanel();
@@ -108,7 +112,7 @@ public class MontarPainelInicial  {
 		outputPanelEsq = new JPanel();
 		outputPanelEsq.setPreferredSize( new Dimension ( 130, 0 ) );
 		outputPanelEsq.setLayout( new BoxLayout (outputPanelEsq, BoxLayout.Y_AXIS));
-		outputPanelEsq.setBackground( Color.white );
+		outputPanelEsq.setBackground( COR_FUNDO_BORDA );
 
 		outputPanelCen = new JPanel();
 		outputPanelCen.setBackground( new Color ( 220, 220, 210 ) );
@@ -122,12 +126,12 @@ public class MontarPainelInicial  {
 		// BUTTON PANEL
 		buttonPanel = new JPanel();
 		buttonPanel.setPreferredSize( new Dimension ( 0, 50 ) );
-		buttonPanel.setBackground( Color.white );
+		buttonPanel.setBackground( COR_FUNDO_BORDA );
 
 		// PANEL TITLE
 		JLabel titulo;
 		titulo = new JLabel( "FILTRO GABOR  -  ZOOM REPLICAÇÃO PIXEL -  OPERACAO MORFOLÓGICA");
-		titulo.setForeground(Color.black);
+		titulo.setForeground(COR_LETRA_TITULO);
 		titulo.setFont(new Font("Dialog", Font.BOLD, 25));
 		titlePanel.add(titulo);
 
@@ -144,7 +148,7 @@ public class MontarPainelInicial  {
 		
 		// ADDING RADIO BUTTON PARA CONTROLE DA VISUALIZACAO DAS IMAGENS
 				controlePanelVisualImagens = new JPanel();
-				controlePanelVisualImagens.setBackground( Color.black );
+				controlePanelVisualImagens.setBackground( COR_FUNDO_BORDA );
 				controlePanelVisualImagens.setMaximumSize( new Dimension ( 130, 65 ) );
 				
 				
@@ -180,7 +184,7 @@ public class MontarPainelInicial  {
 		
 		// ADDING RADIO BUTTON PARA CONTROLE DA OPERAÇÂO MORFOLOGICA
 		controlePanelOpMorfologica = new JPanel();
-		controlePanelOpMorfologica.setBackground( Color.black );
+		controlePanelOpMorfologica.setBackground( COR_FUNDO_BORDA );
 		controlePanelOpMorfologica.setMaximumSize( new Dimension ( 130, 65 ) );
 		outputPanelEsq.add( controlePanelOpMorfologica );
 
@@ -213,7 +217,7 @@ public class MontarPainelInicial  {
 		
 		// ADDING RADIO BUTTON PARA CONTROLE FILTRO
 		controlePanelGabor = new JPanel();
-		controlePanelGabor.setBackground( Color.black );
+		controlePanelGabor.setBackground( COR_FUNDO_BORDA );
 		controlePanelGabor.setMaximumSize( new Dimension ( 130, 105 ) );
 		outputPanelEsq.add( controlePanelGabor );
 
@@ -271,7 +275,7 @@ public class MontarPainelInicial  {
 	
 		// ADDING RADIO BUTTON PARA CONTROLE FILTRO
 		controlePanelGabor2 = new JPanel();
-		controlePanelGabor2.setBackground( Color.black );
+		controlePanelGabor2.setBackground( COR_FUNDO_BORDA );
 		controlePanelGabor2.setMaximumSize( new Dimension ( 130, 105 ) );
 		outputPanelEsq.add( controlePanelGabor2 );
 
@@ -330,10 +334,12 @@ public class MontarPainelInicial  {
 		
 		
 		// ADDING RADIO BUTTON PARA CONTROLE DE ZOOM IN
+		
 		controlePanelZoomIn = new JPanel();
-		controlePanelZoomIn.setBackground( Color.black );
+		controlePanelZoomIn.setBackground( COR_FUNDO_BORDA );
 		controlePanelZoomIn.setMaximumSize( new Dimension ( 130, 110 ) );
-		outputPanelEsq.add( controlePanelZoomIn );
+		//outputPanelEsq.add( controlePanelZoomIn );
+		
 		
 		btZoomInOff = new JRadioButton ("OFF", true);
 		btZoomIn25 = new JRadioButton ("25% in", false);
@@ -380,9 +386,6 @@ public class MontarPainelInicial  {
 		zoomInPanel.add( btZoomIn50 );
 		zoomInPanel.add( btZoomIn75 );
 		zoomInPanel.add( btZoomIn100 );
-	
-	//	zoomInPanel.add( btAcao25 );
-		//zoomInPanel.add( btAcao26 );
 		
 
 		zoomInPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Zoom"));
@@ -392,7 +395,7 @@ public class MontarPainelInicial  {
 
 		// ADDING RADIO BUTTON PARA CONTROLE DE ZOOM OUT
 		controlePanelZoomOut = new JPanel();
-		controlePanelZoomOut.setBackground( Color.black );
+		controlePanelZoomOut.setBackground( COR_FUNDO_BORDA );
 		controlePanelZoomOut.setMaximumSize( new Dimension ( 130, 135 ) );
 		outputPanelEsq.add( controlePanelZoomOut );
 
@@ -424,10 +427,10 @@ public class MontarPainelInicial  {
 		
 
 		
-		zoomOutPanel.add( btZoomOut25 );
-		zoomOutPanel.add( btZoomOut50 );
-		zoomOutPanel.add( btZoomOut75 );
-		zoomOutPanel.add( btZoomOut95 );
+		//zoomOutPanel.add( btZoomOut25 );
+		//zoomOutPanel.add( btZoomOut50 );
+		//zoomOutPanel.add( btZoomOut75 );
+		//zoomOutPanel.add( btZoomOut95 );
 	
 		btZoomTextLb = new JLabel("-100 ate 100: ");
 		btZoomText = new JTextField("0");
