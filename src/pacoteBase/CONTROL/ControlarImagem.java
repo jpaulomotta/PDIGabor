@@ -5,6 +5,8 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
+import pacoteBase.MODEL.ImageUtils;
+
 
 
 
@@ -170,7 +172,7 @@ public class ControlarImagem {
 			}
 		}
 		
-		imagemCinza = copiarImagem(imagemZoom, nLinImagem, nColImagem);
+		imagemCinza = copiarImagem(imagemZoom);
 		  
 		// retorna imagem
 		return ( imagemCinza );
@@ -473,7 +475,7 @@ public class ControlarImagem {
 		
 		
 		
-		imagemCinza = copiarImagem(imagemMorfologia, nLinImagem, nColImagem);
+		imagemCinza = copiarImagem(imagemMorfologia);
 		  
 		// retorna imagem
 		return ( imagemCinza );
@@ -511,37 +513,22 @@ public class ControlarImagem {
 	
 	
 	
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//******************************************************************************************
-	public char[][] copiarImagem ( char[][] imagemC,
-			                       int      nLinImg, 
-			                       int      nColImg
-			                     )
+	public char[][] copiarImagem ( char[][] imagemFonte)
 	{
+		int nColImg = ImageUtils.getNColunas(imagemFonte),
+				nLinImg = ImageUtils.getNLinhas(imagemFonte);
 		int      x, y;
-		char[][] imagemR;
+		char[][] imagemDestino;
 
-		imagemR = new char[nColImg][nLinImg];
+		imagemDestino = new char[nColImg][nLinImg];
 
 		for ( x = 0; x < nColImg; x++ ) 
 			for ( y = 0; y < nLinImg; y++ )
-				imagemR[x][y] = imagemC[x][y];
+				imagemDestino[x][y] = imagemFonte[x][y];
 
-		return ( imagemR );
+		return ( imagemDestino );
 	}
 
 	

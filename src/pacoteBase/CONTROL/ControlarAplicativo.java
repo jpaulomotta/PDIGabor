@@ -72,9 +72,8 @@ public class ControlarAplicativo implements ActionListener {
 			if(pnCenario.isTransictionsSelected()){   
 				//if (pnCenario.getbtOpMorfologica2() ==2){
 				
-				char[][] temp = new char[nLinImageAtual][nColImageAtual];
 				
-				temp = controleImagem.copiarImagem(imagemAtual, nLinImageAtual, nColImageAtual);
+				char[][] temp = controleImagem.copiarImagem(imagemAtual);
 				
 				imagemAtual = controleImagem.aplicaMorfologia(imagemAtual, nLinImageAtual, nColImageAtual);
 				pnCenario.limpaPainelCen();
@@ -288,7 +287,7 @@ if (pnCenario.getbtGabor4() ==2){
 
 			nLinImageAtual = nLinImageInic;
 			nColImageAtual = nColImageInic;
-			imagemAtual    = controleImagem.copiarImagem ( imagemCinza, nLinImageInic, nColImageInic );
+			imagemAtual    = controleImagem.copiarImagem ( imagemCinza);
 		}
 	}
 
@@ -302,7 +301,7 @@ if (pnCenario.getbtGabor4() ==2){
 			
 			char[][] temp = new char[nLinImageAtual][nColImageAtual];
 			
-			temp = controleImagem.copiarImagem(imagemAtual, nLinImageAtual, nColImageAtual);
+			temp = controleImagem.copiarImagem(imagemAtual);
 			
 			imagemAtual = controleImagem.aplicaZoom(imagemAtual, nLinImageAtual, nColImageAtual, percentageZoom);
 			pnCenario.limpaPainelCen();
