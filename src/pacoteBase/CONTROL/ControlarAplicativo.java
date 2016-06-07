@@ -23,6 +23,8 @@ public class ControlarAplicativo implements ActionListener {
 	private int                 nLinImageAtual, nColImageAtual;
 	private int                 nLinImageInic, nColImageInic;
 	private boolean             estadoDesenho;
+	
+	public static final int OPERACAO_ABRIR = 1, OPERACAO_SALVAR = 2;
 
 	
 	//*******************************************************************************************
@@ -57,24 +59,8 @@ public class ControlarAplicativo implements ActionListener {
 
 		// INICIA O PROGRAMA
 		if(comando.equals("botaoImagem")) {
-
-			// LE IMAGEM SOLICITADA
-			nomeArquivoImagemDada = pnCenario.escolherArquivo ( 1 );
-			if ( nomeArquivoImagemDada != null ) {
-				controleImagem = new ControlarImagem( nomeArquivoImagemDada, desenhoCentro );
-				estadoDesenho  = true;
-				imagemCinza    = controleImagem.getImagemCinza();
-				nLinImageInic  = controleImagem.getNLin();
-				nColImageInic  = controleImagem.getNCol();
-
-				pnCenario.mudarBotoes();
-				pnCenario.limpaPainelDir( desenhoDireita );
-				controleImagem.mostrarImagemMatriz ( imagemCinza, nLinImageInic, nColImageInic, desenhoDireita );
-
-				nLinImageAtual = nLinImageInic;
-				nColImageAtual = nColImageInic;
-				imagemAtual    = controleImagem.copiarImagem ( imagemCinza, nLinImageInic, nColImageInic );
-			}
+			nomeArquivoImagemDada = pnCenario.escolherArquivo ( OPERACAO_ABRIR );
+			carregarImagem();
 		}
 		
 		
@@ -91,9 +77,9 @@ public class ControlarAplicativo implements ActionListener {
 				temp = controleImagem.copiarImagem(imagemAtual, nLinImageAtual, nColImageAtual);
 				
 				imagemAtual = controleImagem.aplicaMorfologia(imagemAtual, nLinImageAtual, nColImageAtual);
-				pnCenario.limpaPainelCen(desenhoCentro);
+				pnCenario.limpaPainelCen();
 				controleImagem.mostrarImagemMatriz(temp, nLinImageAtual, nColImageAtual, desenhoCentro);
-				pnCenario.limpaPainelDir(desenhoDireita);
+				pnCenario.limpaPainelDir();
 			}
 					
 				if (pnCenario.isNewImageSelected())
@@ -101,7 +87,7 @@ public class ControlarAplicativo implements ActionListener {
 					
 					nLinImageAtual = controleImagem.getNLin();
 					nColImageAtual = controleImagem.getNCol();
-					pnCenario.limpaPainelDir(desenhoDireita);
+					pnCenario.limpaPainelDir();
 					controleImagem.mostrarImagemMatriz(imagemAtual, nLinImageAtual, nColImageAtual, desenhoDireita);	
 				}	
 			
@@ -279,20 +265,32 @@ if (pnCenario.getbtGabor4() ==2){
 		}
 
 		if ( comando.equals( "botaoReset" ) && estadoDesenho ) {
-			pnCenario.limpaPainelCen( desenhoCentro );
-			controleImagem = new ControlarImagem( nomeArquivoImagemDada, desenhoCentro );
-			nLinImageAtual   = nLinImageInic;
-			nColImageAtual   = nColImageInic;
-			imagemAtual      = controleImagem.copiarImagem ( imagemCinza, nLinImageInic, nColImageInic );
-
-			pnCenario.limpaPainelDir( desenhoDireita );
-			controleImagem.mostrarImagemMatriz ( imagemAtual, nLinImageAtual, nColImageAtual, desenhoDireita );
-
-			pnCenario.ativarPainelAcao1();
+			pnCenario.limpaPainelCen();
+			carregarImagem();
 			pnCenario.resetaSistema();
 		}
 	}
 	
+	
+	
+	private void carregarImagem() {
+		
+		if ( nomeArquivoImagemDada != null ) {
+			controleImagem = new ControlarImagem( nomeArquivoImagemDada, desenhoCentro );
+			estadoDesenho  = true;
+			imagemCinza    = controleImagem.getImagemCinza();
+			nLinImageInic  = controleImagem.getNLin();
+			nColImageInic  = controleImagem.getNCol();
+
+			pnCenario.mudarBotoes();
+			pnCenario.limpaPainelDir();
+			controleImagem.mostrarImagemMatriz ( imagemCinza, nLinImageInic, nColImageInic, desenhoDireita );
+
+			nLinImageAtual = nLinImageInic;
+			nColImageAtual = nColImageInic;
+			imagemAtual    = controleImagem.copiarImagem ( imagemCinza, nLinImageInic, nColImageInic );
+		}
+	}
 
 
 	//*******************************************************************************************
@@ -307,9 +305,9 @@ if (pnCenario.getbtGabor4() ==2){
 			temp = controleImagem.copiarImagem(imagemAtual, nLinImageAtual, nColImageAtual);
 			
 			imagemAtual = controleImagem.aplicaZoom(imagemAtual, nLinImageAtual, nColImageAtual, percentageZoom);
-			pnCenario.limpaPainelCen(desenhoCentro);
+			pnCenario.limpaPainelCen();
 			controleImagem.mostrarImagemMatriz(temp, nLinImageAtual, nColImageAtual, desenhoCentro);
-			pnCenario.limpaPainelDir(desenhoDireita);
+			pnCenario.limpaPainelDir();
 		}
 				
 		if (pnCenario.isNewImageSelected()){
@@ -317,7 +315,7 @@ if (pnCenario.getbtGabor4() ==2){
 			
 			nLinImageAtual = controleImagem.getNLin();
 			nColImageAtual = controleImagem.getNCol();
-			pnCenario.limpaPainelDir(desenhoDireita);
+			pnCenario.limpaPainelDir();
 			controleImagem.mostrarImagemMatriz(imagemAtual, nLinImageAtual, nColImageAtual, desenhoDireita);
 		}
 			

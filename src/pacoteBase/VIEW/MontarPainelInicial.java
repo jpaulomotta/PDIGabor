@@ -1,8 +1,10 @@
 package pacoteBase.VIEW;
 
-	import java.awt.*;
-	import java.io.File;
-	import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+
+
+import javax.swing.*;
 	import pacoteBase.CONTROL.ControlarAplicativo;
 
 public class MontarPainelInicial  {
@@ -460,17 +462,17 @@ public class MontarPainelInicial  {
 	}
 
 	//*******************************************************************************************
-	public void limpaPainelCen ( Graphics desenho )
+	public void limpaPainelCen ()
 	{
 		outputPanelCen.removeAll();
-		outputPanelCen.update( desenho );
+		outputPanelCen.update( getDesenhoCentro() );
 	}
 
 	//*******************************************************************************************
-	public void limpaPainelDir ( Graphics desenho )
+	public void limpaPainelDir ()
 	{
 		outputPanelDir.removeAll();
-		outputPanelDir.update( desenho );
+		outputPanelDir.update( getDesenhoDireita() );
 	}
 
 	//*******************************************************************************************
@@ -560,23 +562,6 @@ public class MontarPainelInicial  {
 		basePanel.setVisible(true);
 	}
 
-	//*******************************************************************************************
-	public void ativarPainelAcao3()
-	{
-		controlePanelOpMorfologica.setVisible(true);
-	}
-
-	//*******************************************************************************************
-	public void desativarPainelAcao3()
-	{
-		controlePanelOpMorfologica.setVisible(false);
-	}
-
-	//*******************************************************************************************
-	public void ativarPainelAcao1()
-	{
-		controlePanelGabor.setVisible(true);
-	}
 
 	//*******************************************************************************************
 	public void desativarPainelAcao1()
