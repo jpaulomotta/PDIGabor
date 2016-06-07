@@ -116,11 +116,6 @@ public class ControlarImagem {
 	}
 	
 	
-
-	
-	
-	
-	
 	//******************************************************************************************
 	public char[][] copiarImagem ( char[][] imagemFonte)
 	{
