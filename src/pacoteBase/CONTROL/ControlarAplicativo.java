@@ -17,7 +17,7 @@ public class ControlarAplicativo implements ActionListener {
 	private Graphics            desenhoCentro, desenhoDireita;
 	private ControlarImagem     controleImagem;
 	private String              nomeArquivoImagemDada;
-	private char[][]            imagemCinza;
+
 	private char[][]            imagemAtual;
 
 	private boolean             estadoDesenho;
@@ -97,7 +97,7 @@ public class ControlarAplicativo implements ActionListener {
 
 		  
 		    //Criando buffer image a partir do arquivo dado. 
-		    BufferedImage bufferedImage = controleImagem.transformarMatriz2Buffer ( imagemCinza );
+		    BufferedImage bufferedImage = controleImagem.transformarMatriz2Buffer ( imagemAtual );
 		    // passando parametros para classe GaborFilter e salvando a imagem filtrada no disco
 		     
 		  
@@ -203,6 +203,7 @@ if (pnCenario.getbtGabor4() ==2){
 	}	
 	
 	controleImagem.mostrarImagemBuffer(bufferedImage, desenhoDireita);
+	//imagemAtual = 
 }
 
 		
@@ -273,14 +274,12 @@ if (pnCenario.getbtGabor4() ==2){
 		if ( nomeArquivoImagemDada != null ) {
 			controleImagem = new ControlarImagem( nomeArquivoImagemDada, desenhoCentro );
 			estadoDesenho  = true;
-			imagemCinza    = controleImagem.getImagemCinza();
+			imagemAtual    = controleImagem.getImagemCinza();
 
 			pnCenario.mudarBotoes();
 			pnCenario.limpaPainelDir();
-			controleImagem.mostrarImagemMatriz ( imagemCinza, desenhoDireita );
+			controleImagem.mostrarImagemMatriz ( imagemAtual, desenhoDireita );
 
-
-			imagemAtual    = controleImagem.copiarImagem ( imagemCinza);
 		}
 	}
 
