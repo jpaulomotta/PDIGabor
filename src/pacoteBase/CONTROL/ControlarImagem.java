@@ -74,9 +74,10 @@ public class ControlarImagem {
 	
 	//************************************************************************
 	// METODO DE ZOOM REPLICACAO PIXEL
-	public char[][] aplicaZoom(char[][] tempZoom, int linhaEn, int colunaEn, int auxZoom)
+	public char[][] aplicaZoom(char[][] tempZoom, int auxZoom)
 	{
-
+		int linhaEn = ImageUtils.getNLinhas(tempZoom);
+		int colunaEn = ImageUtils.getNColunas(tempZoom);
 		int n = 0, d = 0, j, k; // n e d sao os fatores de ampliacao ou reducao da imagem
 
 		// reducao da imagem em 25%
@@ -159,8 +160,7 @@ public class ControlarImagem {
 			
 		}
 		
-		
-// **************************************************************
+	
 		//APLICANDO ZOOM
 		
 		char [][] imagemZoom = new char [nColImagem][nLinImagem];
@@ -191,19 +191,20 @@ public class ControlarImagem {
 	
 	
 	
-	public char[][] aplicaMorfologia(char[][] tempMorfologia, int linhaEn, int colunaEn)
+	public char[][] aplicaMorfologia(char[][] tempMorfologia)
 	{
 
 		int  j, k; 
+	
+			
+		int linhaEn = ImageUtils.getNLinhas(tempMorfologia);
+		int colunaEn = ImageUtils.getNColunas(tempMorfologia);
 
-		
-
-
-		char [][] imagemMorfologia = new char [nColImagem][nLinImagem];
+		char [][] imagemMorfologia = new char [linhaEn][colunaEn];
 		
 		
-		for (j = 0; j < nColImagem-1; j++){
-			for (k = 0; k < nLinImagem-1; k++){
+		for (j = 0; j < linhaEn-1; j++){
+			for (k = 0; k < colunaEn-1; k++){
 				if((int)tempMorfologia[j][k] < 128){
 					imagemMorfologia[j][k] = (char)0;
 				}
@@ -590,15 +591,12 @@ public class ControlarImagem {
 	//*******************************************************************************************
 	// MOSTRAR IMAGEM DO TIPO MATRIZ DE BYTES
 
-	public void mostrarImagemMatriz  ( char[][] imagemM,
-			                           int      nLin,
-			                           int      nCol,
-                                       Graphics desenho 
-                                     )
+	public void mostrarImagemMatriz(char[][] imagemM, Graphics desenho)
 	{
 		BufferedImage imagemB;
-
-		imagemB = transformarMatriz2Buffer ( imagemM, nLin, nCol );
+		int nLin = ImageUtils.getNLinhas(imagemM);
+		int nCol = ImageUtils.getNColunas(imagemM);
+		imagemB = transformarMatriz2Buffer ( imagemM );
 		desenho.drawImage( imagemB, 0, 0, nCol, nLin,  null );  
 	}
 	
@@ -607,11 +605,9 @@ public class ControlarImagem {
 	
 
 	//*******************************************************************************************
-	public BufferedImage transformarMatriz2Buffer ( char[][] imagemM,
-			                                         int      nLin,
-			                                         int      nCol
-			                                       )
+	public BufferedImage transformarMatriz2Buffer ( char[][] imagemM)
 	{
+		int nLin = ImageUtils.getNLinhas(imagemM), nCol = ImageUtils.getNColunas(imagemM);
 		int            x, y;
 		char           valorSaida;
 		WritableRaster imagemRasterSaida;
@@ -635,16 +631,12 @@ public class ControlarImagem {
 	
 	
 	//*******************************************************************************************
-	public void gravarImagem ( String   nomeArquivo,
-			                   char[][] imagemM,
-			                   int      nLin,
-                               int      nCol
-			                 )
+	public void gravarImagem (String nomeArquivo, char[][] imagemM)
 	{
 		File          arquivoImagem;
 		BufferedImage imagemB;
 
-		imagemB = transformarMatriz2Buffer ( imagemM, nLin, nCol );
+		imagemB = transformarMatriz2Buffer ( imagemM );
 
 		// INICIALIZANDO VARIAVEIS
 		arquivoImagem = new File(nomeArquivo + ".jpg" );

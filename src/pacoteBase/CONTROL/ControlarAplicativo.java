@@ -20,8 +20,6 @@ public class ControlarAplicativo implements ActionListener {
 	private char[][]            imagemCinza;
 	private char[][]            imagemAtual;
 
-	private int                 nLinImageAtual, nColImageAtual;
-	private int                 nLinImageInic, nColImageInic;
 	private boolean             estadoDesenho;
 	
 	public static final int OPERACAO_ABRIR = 1, OPERACAO_SALVAR = 2;
@@ -75,19 +73,17 @@ public class ControlarAplicativo implements ActionListener {
 				
 				char[][] temp = controleImagem.copiarImagem(imagemAtual);
 				
-				imagemAtual = controleImagem.aplicaMorfologia(imagemAtual, nLinImageAtual, nColImageAtual);
+				imagemAtual = controleImagem.aplicaMorfologia(imagemAtual);
 				pnCenario.limpaPainelCen();
-				controleImagem.mostrarImagemMatriz(temp, nLinImageAtual, nColImageAtual, desenhoCentro);
+				controleImagem.mostrarImagemMatriz(temp, desenhoCentro);
 				pnCenario.limpaPainelDir();
 			}
 					
 				if (pnCenario.isNewImageSelected())
-					imagemAtual = controleImagem.aplicaMorfologia(imagemAtual, nLinImageAtual, nColImageAtual);
+					imagemAtual = controleImagem.aplicaMorfologia(imagemAtual);
 					
-					nLinImageAtual = controleImagem.getNLin();
-					nColImageAtual = controleImagem.getNCol();
 					pnCenario.limpaPainelDir();
-					controleImagem.mostrarImagemMatriz(imagemAtual, nLinImageAtual, nColImageAtual, desenhoDireita);	
+					controleImagem.mostrarImagemMatriz(imagemAtual, desenhoDireita);	
 				}	
 			
 	//	}
@@ -101,12 +97,12 @@ public class ControlarAplicativo implements ActionListener {
 
 		  
 		    //Criando buffer image a partir do arquivo dado. 
-		    BufferedImage bufferedImage = controleImagem.transformarMatriz2Buffer ( imagemCinza, nLinImageAtual, nColImageAtual );
+		    BufferedImage bufferedImage = controleImagem.transformarMatriz2Buffer ( imagemCinza );
 		    // passando parametros para classe GaborFilter e salvando a imagem filtrada no disco
 		     
 		  
-//*******************************************************
-//APLICA FILTRO GABOR DE ACORDO COM PARAMETRO SELECIONADO
+	//*******************************************************
+	//APLICA FILTRO GABOR DE ACORDO COM PARAMETRO SELECIONADO
 		  
 		if (pnCenario.getbtGabor1() ==2){
 			
@@ -259,8 +255,8 @@ if (pnCenario.getbtGabor4() ==2){
 		}
 
 		if ( comando.equals( "botaoSalva" ) && estadoDesenho ) {
-			nomeArquivo = pnCenario.escolherArquivo ( 2 );
-			controleImagem.gravarImagem( nomeArquivo, imagemAtual, nLinImageAtual, nColImageAtual );
+			nomeArquivo = pnCenario.escolherArquivo ( OPERACAO_SALVAR );
+			controleImagem.gravarImagem( nomeArquivo, imagemAtual );
 		}
 
 		if ( comando.equals( "botaoReset" ) && estadoDesenho ) {
@@ -278,50 +274,36 @@ if (pnCenario.getbtGabor4() ==2){
 			controleImagem = new ControlarImagem( nomeArquivoImagemDada, desenhoCentro );
 			estadoDesenho  = true;
 			imagemCinza    = controleImagem.getImagemCinza();
-			nLinImageInic  = controleImagem.getNLin();
-			nColImageInic  = controleImagem.getNCol();
 
 			pnCenario.mudarBotoes();
 			pnCenario.limpaPainelDir();
-			controleImagem.mostrarImagemMatriz ( imagemCinza, nLinImageInic, nColImageInic, desenhoDireita );
+			controleImagem.mostrarImagemMatriz ( imagemCinza, desenhoDireita );
 
-			nLinImageAtual = nLinImageInic;
-			nColImageAtual = nColImageInic;
+
 			imagemAtual    = controleImagem.copiarImagem ( imagemCinza);
 		}
 	}
 
 
-	//*******************************************************************************************
-	
-	// CONTROLE DO ZOOM(IN/OUT)
 	private void controlZoom(int percentageZoom) {		
 							
 		if(pnCenario.isTransictionsSelected()){   
 			
-			char[][] temp = new char[nLinImageAtual][nColImageAtual];
+			char[][] temp = controleImagem.copiarImagem(imagemAtual);
 			
-			temp = controleImagem.copiarImagem(imagemAtual);
-			
-			imagemAtual = controleImagem.aplicaZoom(imagemAtual, nLinImageAtual, nColImageAtual, percentageZoom);
+			imagemAtual = controleImagem.aplicaZoom(imagemAtual, percentageZoom);
 			pnCenario.limpaPainelCen();
-			controleImagem.mostrarImagemMatriz(temp, nLinImageAtual, nColImageAtual, desenhoCentro);
+			controleImagem.mostrarImagemMatriz(temp, desenhoCentro);
 			pnCenario.limpaPainelDir();
 		}
 				
 		if (pnCenario.isNewImageSelected()){
-			imagemAtual = controleImagem.aplicaZoom(imagemAtual, nLinImageAtual, nColImageAtual, percentageZoom);
+			imagemAtual = controleImagem.aplicaZoom(imagemAtual, percentageZoom);
 			
-			nLinImageAtual = controleImagem.getNLin();
-			nColImageAtual = controleImagem.getNCol();
 			pnCenario.limpaPainelDir();
-			controleImagem.mostrarImagemMatriz(imagemAtual, nLinImageAtual, nColImageAtual, desenhoDireita);
+			controleImagem.mostrarImagemMatriz(imagemAtual, desenhoDireita);
 		}
 			
 	}
 	
-	// *******************************************************************************************
 }
-
-
-	
