@@ -41,11 +41,11 @@ public class MontarPainelInicial  {
 
 	
 
-	private JRadioButton  btGabor12;
-	private JRadioButton  btGabor22;
-	private JRadioButton  btGabor32;
-	private JRadioButton  btGabor42;
-
+	private JRadioButton  btGabor0Grau;
+	private JRadioButton  btGabor45Grau;
+	private JRadioButton  btGabor90Grau;
+	private JRadioButton  btGabor135Grau;
+	private JRadioButton  btGaborTodosAngulos;
 	private ButtonGroup   btRdGabor2;
 	
 	
@@ -218,7 +218,7 @@ public class MontarPainelInicial  {
 		// ADDING RADIO BUTTON PARA CONTROLE FILTRO
 		controlePanelGabor = new JPanel();
 		controlePanelGabor.setBackground( COR_FUNDO_BORDA );
-		controlePanelGabor.setMaximumSize( new Dimension ( 130, 105 ) );
+		controlePanelGabor.setMaximumSize( new Dimension ( 130, 110 ) );
 		outputPanelEsq.add( controlePanelGabor );
 
 		char l = (char)955;
@@ -276,52 +276,55 @@ public class MontarPainelInicial  {
 		// ADDING RADIO BUTTON PARA CONTROLE FILTRO
 		controlePanelGabor2 = new JPanel();
 		controlePanelGabor2.setBackground( COR_FUNDO_BORDA );
-		controlePanelGabor2.setMaximumSize( new Dimension ( 130, 105 ) );
+		controlePanelGabor2.setMaximumSize( new Dimension ( 130, 150 ) );
 		outputPanelEsq.add( controlePanelGabor2 );
 
 		char l2 = (char)952;
 		
 
-		btGabor12 = new JRadioButton ( "0 "+l2, false );
-		btGabor22 = new JRadioButton ( "45 "+l2, false );
-		btGabor32 = new JRadioButton ( "90 "+l2, false );
-		btGabor42 = new JRadioButton ( "135 "+l2, false );
-
+		btGabor0Grau = new JRadioButton ( "0 "+l2, false );
+		btGabor45Grau = new JRadioButton ( "45 "+l2, false );
+		btGabor90Grau = new JRadioButton ( "90 "+l2, false );
+		btGabor135Grau = new JRadioButton ( "135 "+l2, false );
+		btGaborTodosAngulos = new JRadioButton("Todos", false);
 		
 		
 		btRdGabor2 = new ButtonGroup();
 	
 		
 	//	btRdGabor.add(btGabor02 );
-		btRdGabor2.add(btGabor12 );
-		btRdGabor2.add(btGabor22 );		
-		btRdGabor2.add(btGabor32 );		
-		btRdGabor2.add(btGabor42 );		
+		btRdGabor2.add(btGabor0Grau );
+		btRdGabor2.add(btGabor45Grau );		
+		btRdGabor2.add(btGabor90Grau );		
+		btRdGabor2.add(btGabor135Grau );	
+		btRdGabor2.add(btGaborTodosAngulos);
 	
 
-		btGabor12.addActionListener(controlePrograma);
-		btGabor22.addActionListener(controlePrograma);
-		btGabor32.addActionListener(controlePrograma);
-		btGabor42.addActionListener(controlePrograma);
+		btGabor0Grau.addActionListener(controlePrograma);
+		btGabor45Grau.addActionListener(controlePrograma);
+		btGabor90Grau.addActionListener(controlePrograma);
+		btGabor135Grau.addActionListener(controlePrograma);
 
 		
-		btGabor12.setActionCommand( "botaoGabor12" );
-		btGabor22.setActionCommand( "botaoGabor22" );
-		btGabor32.setActionCommand( "botaoGabor32" );
-		btGabor42.setActionCommand( "botaoGabor42" );
+		btGabor0Grau.setActionCommand( "botaoGabor12" );
+		btGabor45Grau.setActionCommand( "botaoGabor22" );
+		btGabor90Grau.setActionCommand( "botaoGabor32" );
+		btGabor135Grau.setActionCommand( "botaoGabor42" );
+		btGaborTodosAngulos.setActionCommand( "botaoGaborTodosAngulos" );
 	
 		
 	
 
 		acao1Panel = new JPanel();
-		acao1Panel.setPreferredSize( new Dimension ( 120, 100 ) );
-		acao1Panel.setLayout(new GridLayout(4, 1));
+		acao1Panel.setPreferredSize( new Dimension ( 120, 130 ) );
+		acao1Panel.setLayout(new GridLayout(5, 1));
 
 		//acao1Panel.add( btGabor02 );
-		acao1Panel.add( btGabor12 );
-		acao1Panel.add( btGabor22 );
-		acao1Panel.add( btGabor32 );
-		acao1Panel.add( btGabor42 );
+		acao1Panel.add( btGabor0Grau );
+		acao1Panel.add( btGabor45Grau );
+		acao1Panel.add( btGabor90Grau );
+		acao1Panel.add( btGabor135Grau );
+		acao1Panel.add( btGaborTodosAngulos );
 	
 
 		acao1Panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Filtro Orientacao"));
@@ -610,81 +613,47 @@ public class MontarPainelInicial  {
 	//******************************************************************************************
 	//VERIFICA SE BOTAO GABOR ESTA SELECIONADO NO PAINEL
 	
-	public int getbtGabor1(){
-		
-		int botaoGabor1 = 1;
-		
-		if(btGabor1.isSelected()) botaoGabor1 = 2;
-		
-		return (botaoGabor1);
+	public int getGaborWaveLenght(){
+
+		if(btGabor1.isSelected()) return 1;
+		if(btGabor2.isSelected()) return 2;
+		if(btGabor3.isSelected()) return 3;
+		if(btGabor4.isSelected()) return 4;
+		return 1;
 	}
 	
-	public int getbtGabor2(){
-		
-		int botaoGabor2 = 1;
-		
-		if(btGabor2.isSelected()) botaoGabor2 = 2;
-		
-		return (botaoGabor2);
-	}
-	
-	public int getbtGabor3(){
-		
-		int botaoGabor3 = 1;
-		
-		if(btGabor3.isSelected()) botaoGabor3 = 2;
-		
-		return (botaoGabor3);
-	}
-	
-	public int getbtGabor4(){
-		
-		int botaoGabor4 = 1;
-		
-		if(btGabor4.isSelected()) botaoGabor4 = 2;
-		
-		return (botaoGabor4);
-	}
 	
 	
 
 	// PARAMETROS 2 DE GABOR ***********************
-
-	public int getbtGabor12(){
-		
-		int botaoGabor12 = 1;
-		
-		if(btGabor12.isSelected()) botaoGabor12 = 2;
-		return (botaoGabor12);
+	
+	public double getGaborRad() {
+		if(btGabor0Grau.isSelected()) return 0;
+		if(btGabor45Grau.isSelected()) return Math.PI/4;
+		if(btGabor90Grau.isSelected()) return Math.PI/2;
+		if(btGabor135Grau.isSelected()) return Math.PI/0.75;
+		return 0;
 	}
 	
-	public int getbtGabor22(){
-		
-		int botaoGabor22 = 1;
-		
-		if(btGabor22.isSelected()) botaoGabor22 = 2;
-		
-		return (botaoGabor22);
+	public boolean isBotaoGabor0Grau(){
+		return btGabor0Grau.isSelected();
 	}
 	
-	public int getbtGabor32(){
-		
-		int botaoGabor32 = 1;
-		
-		if(btGabor32.isSelected()) botaoGabor32 = 2;
-		
-		return (botaoGabor32);
+	public boolean isBotaoGabor45Grau(){
+		return btGabor45Grau.isSelected();
 	}
 	
-	public int getbtGabor42(){
-		
-		int botaoGabor42 = 1;
-		
-		if(btGabor42.isSelected()) botaoGabor42 = 2;
-		
-		return (botaoGabor42);
+	public boolean isBotaoGabor90Grau(){
+		return btGabor90Grau.isSelected();
+	}
+	
+	public boolean isBotaoGabor135Grau(){
+		return btGabor135Grau.isSelected();
 	}	
-
+	
+	public boolean isBotaoGaborTodosAngulos() {
+		return btGaborTodosAngulos.isSelected();
+	}
 	
 	
 public int getbtOpMorfologica2(){

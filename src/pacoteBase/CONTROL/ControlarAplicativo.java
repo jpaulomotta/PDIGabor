@@ -104,83 +104,22 @@ public class ControlarAplicativo implements ActionListener {
 
 			//*******************************************************
 			//APLICA FILTRO GABOR DE ACORDO COM PARAMETRO SELECIONADO
-
-			if (pnCenario.getbtGabor1() ==2){
-				if (pnCenario.getbtGabor12() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(1, new double[] {0}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor22() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(1, new double[] {Math.PI/4}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor32() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(1, new double[] {Math.PI/2}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor42() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(1, new double[] {Math.PI/0.75}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
+			
+			int wavelength = pnCenario.getGaborWaveLenght();
+			double rads = pnCenario.getGaborRad();
+			
+			if(!pnCenario.isBotaoGaborTodosAngulos()) {
+				bufferedImage = (BufferedImage) new GaborFiltro(wavelength, new double[] {rads}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
+			} else {
+				int NUM_ANGULOS = 10;
+				double[] angulos = new double[NUM_ANGULOS];
+				for(int i =0; i< NUM_ANGULOS; i++) {
+					angulos[i] = i*(Math.PI/NUM_ANGULOS);
+				}
+				bufferedImage = (BufferedImage) new GaborFiltro(wavelength, angulos, 100, 0, 1, 3, 3).filter(bufferedImage, null);
 			}
-
-			if (pnCenario.getbtGabor2() ==2){
-				if (pnCenario.getbtGabor12() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(2, new double[] {0}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor22() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(2, new double[] {Math.PI/4}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor32() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(2, new double[] {Math.PI/2}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor42() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(2, new double[] {Math.PI/0.75}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-			}
-
-
-			if (pnCenario.getbtGabor3() ==2){
-
-				if (pnCenario.getbtGabor12() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(3, new double[] {0}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor22() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(3, new double[] {Math.PI/4}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor32() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(3, new double[] {Math.PI/2}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor42() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(3, new double[] {Math.PI/0.75}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-			}
-
-			if (pnCenario.getbtGabor4() ==2){
-
-
-				if (pnCenario.getbtGabor12() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(4, new double[] {0}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor22() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(4, new double[] {Math.PI/4}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor32() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(4, new double[] {Math.PI/2}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-
-				if (pnCenario.getbtGabor42() ==2) {
-					bufferedImage = (BufferedImage) new GaborFiltro(4, new double[] {Math.PI/0.75}, 100, 0, 1, 3, 3).filter(bufferedImage, null);
-				}	
-			}
+			
+			
 			
 			controleImagem.mostrarImagem(bufferedImage, desenhoDireita);
 			imagemAtual = controleImagem.criarImagemCinza(bufferedImage);
