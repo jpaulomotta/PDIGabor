@@ -25,6 +25,9 @@ public class MontarPainelInicial  {
 	private JButton  btSalva;
 	private JButton  btReset;
 	private JButton  btOperacao;
+	private JButton btInverterCores;
+	private JButton btReconhecer;
+
 
 	private JRadioButton btOpMorfologica1; 
 	private JRadioButton btOpMorfologica2;
@@ -136,13 +139,15 @@ public class MontarPainelInicial  {
 		titlePanel.add(titulo);
 
 		// ADDING BUTTONS
-		addAButton ( "CARREGAR IMAGEM", "botaoImagem", buttonPanel, true, controlePrograma );
-		btReset = addAButton ( "RESET", "botaoReset", buttonPanel, false, controlePrograma );
-		btGabor = addAButton ( "FILTRO GABOR", "botaoAcao1", buttonPanel, false, controlePrograma );
-		btZoom = addAButton ( "ZOOM", "botaoZoom", buttonPanel, false, controlePrograma );
-		btOperacao = addAButton ( "OPERACAO MORFOLOGICA", "botaoOpMorfologica", buttonPanel, false, controlePrograma );
-		btSalva = addAButton ( "SALVAR", "botaoSalva", buttonPanel, false, controlePrograma );
-		addAButton ( "SAIR", "botaoFim", buttonPanel, true, controlePrograma );
+		addButtonToContainer ( "CARREGAR IMAGEM", "botaoImagem", buttonPanel, true, controlePrograma );
+		btReset = addButtonToContainer ( "RESET", "botaoReset", buttonPanel, false, controlePrograma );
+		btGabor = addButtonToContainer ( "FILTRO GABOR", "botaoAcao1", buttonPanel, false, controlePrograma );
+		btZoom = addButtonToContainer ( "ZOOM", "botaoZoom", buttonPanel, false, controlePrograma );
+		btOperacao = addButtonToContainer ( "OPERACAO MORFOLOGICA", "botaoOpMorfologica", buttonPanel, false, controlePrograma );
+		btSalva = addButtonToContainer ( "SALVAR", "botaoSalva", buttonPanel, false, controlePrograma );
+		btInverterCores = addButtonToContainer("INVERTER", "botaoInverter", buttonPanel, false, controlePrograma);
+		btReconhecer = addButtonToContainer("RECONHECER", "botaoReconhecerDigital", buttonPanel, false, controlePrograma);
+		addButtonToContainer ( "SAIR", "botaoFim", buttonPanel, true, controlePrograma );
 
 		
 		
@@ -484,7 +489,7 @@ public class MontarPainelInicial  {
 	//*******************************************************************************************
 	// METODO UTILIZADO PARA ADICIONAR UM BOTAO A UM CONTAINER DO PROGRAMA
 
-	private JButton addAButton( String              textoBotao,
+	private JButton addButtonToContainer( String              textoBotao,
                                 String              textoControle,
                                 Container           container,
                                 boolean             estado,
@@ -514,12 +519,17 @@ public class MontarPainelInicial  {
 		btSalva.setEnabled(true);
 		btReset.setEnabled(true);
 		btOperacao.setEnabled(true);
+		btInverterCores.setEnabled(true);
+		btReconhecer.setEnabled(true);
 		controlePanelOpMorfologica.setVisible(true);
 		controlePanelGabor.setVisible(true);
 		controlePanelGabor2.setVisible(true);
 		controlePanelZoomIn.setVisible(true);
 		controlePanelVisualImagens.setVisible(true);
 		controlePanelZoomOut.setVisible(true);
+		btInverterCores.setVisible(true);
+		btReconhecer.setVisible(true);
+		
 	}
 
 	//*******************************************************************************************

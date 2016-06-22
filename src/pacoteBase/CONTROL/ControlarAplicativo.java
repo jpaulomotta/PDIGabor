@@ -2,6 +2,8 @@ package pacoteBase.CONTROL;
 
 
 import pacoteBase.MODEL.GaborFiltro;
+import pacoteBase.MODEL.ImageUtils;
+import pacoteBase.MODEL.ImpressaoDigital;
 import pacoteBase.MODEL.Morfologia;
 import pacoteBase.VIEW.*;
 import java.awt.Graphics;
@@ -97,9 +99,7 @@ public class ControlarAplicativo implements ActionListener {
 		if ( comando.equals( "botaoAcao1" )&& estadoDesenho  )  {
 
 
-			//Criando buffer image a partir do arquivo dado. 
 			BufferedImage bufferedImage = controleImagem.transformarMatriz2Buffer ( imagemAtual );
-			// passando parametros para classe GaborFilter e salvando a imagem filtrada no disco
 
 
 			//*******************************************************
@@ -121,9 +121,28 @@ public class ControlarAplicativo implements ActionListener {
 			
 			
 			
-			controleImagem.mostrarImagem(bufferedImage, desenhoDireita);
-			imagemAtual = controleImagem.criarImagemCinza(bufferedImage);
+			
+			imagemAtual = ImageUtils.bufferedToBytes(bufferedImage);
+			controleImagem.mostrarImagem(imagemAtual, desenhoDireita);
 		} 
+		
+		if(comando.equals("botaoInverter") && estadoDesenho) {
+			System.out.println("Invertendo");
+			imagemAtual = ImageUtils.inverterBinaria(imagemAtual);
+			controleImagem.mostrarImagem(imagemAtual, desenhoDireita);
+		}
+		
+		if(comando.equals("botaoReconhecerDigital") && estadoDesenho) {
+			BufferedImage bi = controleImagem.transformarMatriz2Buffer(imagemAtual);
+			
+			BufferedImage afinada = ImpressaoDigital.reconhecerTracos(bi);
+			if(afinada != null) {
+				imagemAtual = ImageUtils.bufferedToBytes(afinada);
+				controleImagem.mostrarImagem(imagemAtual, desenhoDireita);
+				
+				
+			}
+		}
 
 		//ZOOM **************************************************
 
