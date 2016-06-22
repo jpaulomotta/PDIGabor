@@ -5,6 +5,7 @@ import pacoteBase.MODEL.GaborFiltro;
 import pacoteBase.MODEL.ImageUtils;
 import pacoteBase.MODEL.ImpressaoDigital;
 import pacoteBase.MODEL.Morfologia;
+import pacoteBase.MODEL.MorfologiaEsqueleto;
 import pacoteBase.VIEW.*;
 import java.awt.Graphics;
 
@@ -76,14 +77,14 @@ public class ControlarAplicativo implements ActionListener {
 
 				char[][] temp = controleImagem.copiarImagem(imagemAtual);
 
-				imagemAtual = Morfologia.aplicar(imagemAtual);
+				imagemAtual = MorfologiaEsqueleto.aplicar(imagemAtual);
 				pnCenario.limpaPainelCen();
 				controleImagem.mostrarImagem(temp, desenhoCentro);
 				pnCenario.limpaPainelDir();
 			}
 
 			if (pnCenario.isNewImageSelected())
-				imagemAtual = Morfologia.aplicar(imagemAtual);
+				imagemAtual = MorfologiaEsqueleto.aplicar(imagemAtual);
 
 			pnCenario.limpaPainelDir();
 			controleImagem.mostrarImagem(imagemAtual, desenhoDireita);	
