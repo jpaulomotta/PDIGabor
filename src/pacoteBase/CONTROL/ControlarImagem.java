@@ -192,12 +192,13 @@ public class ControlarImagem {
 		
 		if(dadosDigital != null) {
 			Graphics2D g = (Graphics2D) desenho;
-			int CIRCLE_SIZE = 6;
+			int CIRCLE_SIZE = 7;
 			for(int i = 0; i < dadosDigital.length; i++) {
 				for(int j = 0; j < dadosDigital[0].length; j++) {
+					g.setStroke(new BasicStroke(2));
 					if(dadosDigital[i][j] == 3) {
 						g.setColor(Color.RED);
-						g.drawOval(i-CIRCLE_SIZE, j-CIRCLE_SIZE, CIRCLE_SIZE, CIRCLE_SIZE);
+						g.drawOval(i-CIRCLE_SIZE/2, j-CIRCLE_SIZE/2, CIRCLE_SIZE, CIRCLE_SIZE);
 					} else if(dadosDigital[i][j] == 1) {
 						g.setColor(Color.GREEN);
 						//g.drawOval(i-CIRCLE_SIZE, j-CIRCLE_SIZE, CIRCLE_SIZE, CIRCLE_SIZE);
