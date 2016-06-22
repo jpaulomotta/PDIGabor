@@ -1,75 +1,131 @@
 package pacoteBase.MODEL;
 
+/* Implementado utilizando algoritmo de afinamento. Explicação disponivel em: http://homepages.inf.ed.ac.uk/rbf/HIPR2/thin.htm */
 public class MorfologiaEsqueleto {
 	
-	private static final char EROSAO = 0, DILATACAO = 1;
+	private static final int EROSAO = 0;//, DILATACAO = 1;
 	
-	public static char[][] aplicar(char[][] tempMorfologia)
+	
+
+	
+	private static int[][] prunning(int[][] imagemMorfologia) {
+		int[][] p1 = new int[][] {
+			{0, 0, 0},
+			{0, 1, 0},
+			{0, 2, 2}
+		};
+		int[][] p2 = new int[][] {
+			{0, 0, 0},
+			{2, 1, 0},
+			{2, 0, 0}
+		};
+		int[][] p3 = new int[][] {
+			{2, 2, 0},
+			{0, 1, 0},
+			{0, 0, 0}
+		};
+		int[][] p4 = new int[][] {
+			{0, 0, 2},
+			{0, 1, 2},
+			{0, 0, 0}
+		};
+		
+		int[][] p5 = new int[][] {
+			{0, 0, 0},
+			{0, 1, 0},
+			{2, 2, 0}
+		};
+		int[][] p6 = new int[][] {
+			{2, 0, 0},
+			{2, 1, 0},
+			{0, 0, 0}
+		};
+		int[][] p7 = new int[][] {
+			{0, 2, 2},
+			{0, 1, 0},
+			{0, 0, 0}
+		};
+		int[][] p8 = new int[][] {
+			{0, 0, 0},
+			{0, 1, 2},
+			{0, 0, 2}
+		};
+		
+		aplicarMorfologia(imagemMorfologia, p1, EROSAO);
+		aplicarMorfologia(imagemMorfologia, p5, EROSAO);
+		
+		aplicarMorfologia(imagemMorfologia, p2, EROSAO);
+		aplicarMorfologia(imagemMorfologia, p6, EROSAO);
+		
+		aplicarMorfologia(imagemMorfologia, p3, EROSAO);
+		aplicarMorfologia(imagemMorfologia, p7, EROSAO);
+		
+		aplicarMorfologia(imagemMorfologia, p4, EROSAO);
+		aplicarMorfologia(imagemMorfologia, p8, EROSAO);
+		
+		return imagemMorfologia;
+	}
+	
+	
+	public static int[][] aplicar(int[][] tempMorfologia)
 	{
 		
-		int linhaEn = ImageUtils.getNLinhas(tempMorfologia);
-		int colunaEn = ImageUtils.getNColunas(tempMorfologia);
+		int linhaEn = tempMorfologia.length;
+		int colunaEn = tempMorfologia[0].length;
 
-		char [][] imagemMorfologia = new char [colunaEn][linhaEn];
+		int [][] imagemMorfologia = new int [linhaEn][colunaEn];
+		
+		for(int i = 0; i < linhaEn; i++)
+			for(int j=0; j< colunaEn; j++)
+				imagemMorfologia[i][j] = tempMorfologia[i][j];
 		
 		
-		for (int j = 0; j < colunaEn-1; j++){
-			for (int k = 0; k < linhaEn-1; k++){
-				if((int)tempMorfologia[j][k] > 128){
-					imagemMorfologia[j][k] = (char)0;
-				}
-				else{
-					imagemMorfologia[j][k] = (char)1;
-				}
-
-			}
-		}
 				
 	
-		char [][]b1 = new char[][] { 
+		int [][]b1 = new int[][] { 
 			{0, 0, 0}, 
 			{2, 1, 2}, 
 			{1, 1, 1} 
 		}; 
 		
-		char [][]b2 = new char[][] { 
+		int [][]b2 = new int[][] { 
 			{1, 2, 0}, 
 			{1, 1, 0}, 
 			{1, 2, 0} 
 		};
 		
-		char [][]b3 = new char[][] { 
+		int [][]b3 = new int[][] { 
 			{1, 1, 1}, 
 			{2, 1, 2}, 
 			{0, 0, 0}
 		};
 		
-		char [][]b4 = new char[][] { 
+		int [][]b4 = new int[][] { 
 			{0, 2, 1}, 
 			{0, 1, 1}, 
 			{0, 2, 1} 
 		};
 		
 		//Elemento 2
-		char [][]b5 = new char[][] { 
+		int [][]b5 = new int[][] { 
 			{2, 0, 0}, 
 			{1, 1, 0}, 
 			{2, 1, 2} 
 		}; 
 		
-		char [][]b6 = new char[][] { 
+		int [][]b6 = new int[][] { 
 			{2, 1, 2}, 
 			{1, 1, 0}, 
 			{2, 0, 0} 
 		}; 
 		
-		char [][]b7 = new char[][] { 
+		int [][]b7 = new int[][] { 
 			{2, 1, 2}, 
 			{0, 1, 1}, 
 			{0, 0, 2}
 		}; 
 		
-		char [][]b8 = new char[][] { 
+		int [][]b8 = new int[][] { 
 			{0, 0, 2}, 
 			{0, 1, 1}, 
 			{2, 1, 2} 
@@ -79,6 +135,8 @@ public class MorfologiaEsqueleto {
 		
 		
 		boolean modificou = false;
+		int i = 0;
+		
 		do {
 			modificou = aplicarMorfologia(imagemMorfologia, b1, EROSAO) ||
 			aplicarMorfologia(imagemMorfologia, b5, EROSAO) ||
@@ -91,27 +149,19 @@ public class MorfologiaEsqueleto {
 			
 			aplicarMorfologia(imagemMorfologia, b4, EROSAO) ||
 			aplicarMorfologia(imagemMorfologia, b8, EROSAO);
-		} while(modificou);
-		
-		
-		
-		for(int i=0; i<imagemMorfologia.length; i++) {
-			for(int j=0;j<imagemMorfologia[0].length; j++) {
-				if(imagemMorfologia[i][j] == 1) {
-					imagemMorfologia[i][j] = 0x00;
-				} else {
-					imagemMorfologia[i][j] = 0xFF;
-				}
+			
+			if(i < 2) {
+				prunning(imagemMorfologia);
 			}
-		}
+			i++;
+		} while(modificou);
 
-		
 		
 		return imagemMorfologia;
 	}
 	
 	
-	private static boolean aplicarMorfologia(char[][] imagem, char[][] b, char aplicar) {
+	private static boolean aplicarMorfologia(int[][] imagem, int[][] b, int aplicar) {
 		boolean modificou = false;
 		for (int j = 0; j < imagem.length-1; j++){
 			for (int k = 0; k < imagem[0].length-1; k++){
@@ -128,7 +178,7 @@ public class MorfologiaEsqueleto {
 
 	//******************************************************************************************
 	// METODO VERIFICA FORMA
-	private static boolean verificaForma(char[][] imagem, int j, int k, char[][] b)
+	private static boolean verificaForma(int[][] imagem, int j, int k, int[][] b)
 	{
 		int lmin, lmax, cmin, cmax, m, n, x = 0, y = 0;
 		lmin = j-1;
@@ -143,7 +193,7 @@ public class MorfologiaEsqueleto {
 		for (m = lmin; m <= lmax; m++){
 			y = 0;
 			for (n = cmin; n <= cmax; n++){
-				if(b[x][y] !=  (char)2){
+				if(b[x][y] !=  (int)2){
 					if(imagem[m][n] != b[x][y]){
 						return false;
 					}

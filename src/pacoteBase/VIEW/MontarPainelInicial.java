@@ -77,6 +77,7 @@ public class MontarPainelInicial  {
 
 	private Graphics      desenhoCen;
 	private Graphics      desenhoDir;
+
 	
 	private final Color COR_FUNDO_TITULO = new Color(0x1D2C78, false);
 	private final Color COR_LETRA_TITULO = Color.white;
@@ -798,7 +799,8 @@ public int getbtOpMorfologica2(){
 	{
 		return Integer.parseInt(btZoomText.getText());
 	}
-
+	
+	
 
 }
 

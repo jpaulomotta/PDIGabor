@@ -11,17 +11,19 @@ import pacoteBase.MODEL.ImageUtils;
 
 
 public class ControlarImagem {
-	
+
 	private int           nLinImagem;
 	private int           nColImagem;
 	private BufferedImage imagemDada;
-	
+
+	private int[][] dadosDigital;
+
 
 
 	//*******************************************************************************************
 	public ControlarImagem( String   nomeArquivoImagemDada,
-	                        Graphics desenho
-			              )
+			Graphics desenho
+			)
 	{
 		imagemDada = lerImagem ( nomeArquivoImagemDada );
 		if ( imagemDada != null ) {
@@ -65,14 +67,14 @@ public class ControlarImagem {
 				//  GERANDO NIVEL DE CINZA 
 				valorSaida = (char)((r+g+b)/3);
 				imagemCinza[x][y] = valorSaida;
-			
+
 			}
 		}
-		
+
 		return imagemCinza;
 	}
-	
-	
+
+
 	//************************************************************************
 	// METODO DE ZOOM REPLICACAO PIXEL
 	public char[][] aplicaZoom(char[][] tempZoom, int auxZoom)
@@ -80,13 +82,13 @@ public class ControlarImagem {
 		int linhaEn = ImageUtils.getNLinhas(tempZoom);
 		int colunaEn = ImageUtils.getNColunas(tempZoom);
 		int n = 0, d = 0, j, k; // n e d sao os fatores de ampliacao ou reducao da imagem
-		
+
 		//PARAMETRO ZOOM DO TEXTFILD
 		if(auxZoom >0)
 		{	
 			n= 100+auxZoom;
 			d= 100;
-					
+
 			linhaEn =(int) ((float)linhaEn*((float)(n)/100));
 			colunaEn = (int) ((float)colunaEn*((float)(n)/100));
 		}
@@ -94,28 +96,28 @@ public class ControlarImagem {
 		{
 			n=100-Math.abs(auxZoom);
 			d= 100;	
-			
+
 			linhaEn =(int) ((float)linhaEn*((float)(n)/100));
 			colunaEn = (int) ((float)colunaEn*((float)(n)/100));
-			
+
 		}
-		
-	
+
+
 		//APLICANDO ZOOM
-		
+
 		char [][] imagemZoom = new char [colunaEn][linhaEn];
-		
-		
+
+
 		for (j = 0; j < colunaEn-1; j++){
 			for (k = 0; k < linhaEn-1; k++){
 				imagemZoom[j][k] = tempZoom[j*d/n][k*d/n];
 			}
 		}
-		
+
 		return imagemZoom;
 	}
-	
-	
+
+
 	//******************************************************************************************
 	public char[][] copiarImagem ( char[][] imagemFonte)
 	{
@@ -133,10 +135,10 @@ public class ControlarImagem {
 		return ( imagemDestino );
 	}
 
-	
-	
-	
-	
+
+
+
+
 	//*******************************************************************************************
 	private BufferedImage lerImagem ( String nomeArquivo )
 	{
@@ -157,51 +159,63 @@ public class ControlarImagem {
 		return ( imagem );
 	}
 
-	
-	
-	
-	//*******************************************************************************************
-	// MOSTRAR IMAGEM BUFERIZADA
-	/*
-	public void mostrarImagem  ( BufferedImage imagem,
-			                           Graphics      desenho 
-			                         )
+
+
+
+
+
+
+	/*public void mostrarImagem(BufferedImage imagemM, Graphics desenho)
+	{
+		desenho.drawImage( imagemM, 0, 0, imagemM.getWidth(), imagemM.getHeight(),  null );
+
+		
+	}*/
+
+	public void mostrarImagem  ( BufferedImage imagem,Graphics desenho )
 	{
 		int imageWidth, imageHeight, x, sx, y, sy, cell, dx, dy;
 		int cells[] = {0, 1, 2, 3};
-
 		imageWidth  = imagem.getWidth(null);
 		imageHeight = imagem.getHeight(null);
-
 		for ( x = 0; x < 2; x++ ) {
-		    sx = x * imageWidth;
-		    for ( y = 0; y < 2; y++ ) {
-		        sy   = y * imageHeight;
-		        cell = cells[x*2+y];
-		        dx   = (cell / 2) * imageWidth;
-		        dy   = (cell % 2) * imageHeight;
-		        desenho.drawImage( imagem, dx, dy, x + imageWidth, dy + imageHeight,  
-		        		           sx, sy,  sx + imageWidth, sy + imageHeight, null );
-		    }
+			sx = x * imageWidth;
+			for ( y = 0; y < 2; y++ ) {
+				sy   = y * imageHeight;
+				cell = cells[x*2+y];
+				dx   = (cell / 2) * imageWidth;
+				dy   = (cell % 2) * imageHeight;
+				desenho.drawImage( imagem, dx, dy, x + imageWidth, dy + imageHeight,  
+						sx, sy,  sx + imageWidth, sy + imageHeight, null );
+			}
 		}
-	}*/
+		
+		if(dadosDigital != null) {
+			Graphics2D g = (Graphics2D) desenho;
+			int CIRCLE_SIZE = 6;
+			for(int i = 0; i < dadosDigital.length; i++) {
+				for(int j = 0; j < dadosDigital[0].length; j++) {
+					if(dadosDigital[i][j] == 3) {
+						g.setColor(Color.RED);
+						g.drawOval(i-CIRCLE_SIZE, j-CIRCLE_SIZE, CIRCLE_SIZE, CIRCLE_SIZE);
+					} else if(dadosDigital[i][j] == 1) {
+						g.setColor(Color.GREEN);
+						//g.drawOval(i-CIRCLE_SIZE, j-CIRCLE_SIZE, CIRCLE_SIZE, CIRCLE_SIZE);
+					}
 
-	
-	
-	
-	public void mostrarImagem(BufferedImage imagemM, Graphics desenho)
-	{
-		desenho.drawImage( imagemM, 0, 0, imagemM.getWidth(), imagemM.getHeight(),  null );  
+				}
+			}
+		}
 	}
 
 	public void mostrarImagem(char[][] imagemM, Graphics desenho)
 	{
 		mostrarImagem(transformarMatriz2Buffer(imagemM), desenho); 
 	}
-	
-	
-	
-	
+
+
+
+
 
 	//*******************************************************************************************
 	public BufferedImage transformarMatriz2Buffer ( char[][] imagemM)
@@ -225,10 +239,10 @@ public class ControlarImagem {
 		return ( imagemB );
 	}
 
-	
-	
-	
-	
+
+
+
+
 	//*******************************************************************************************
 	public void gravarImagem (String nomeArquivo, char[][] imagemM)
 	{
@@ -247,18 +261,18 @@ public class ControlarImagem {
 			System.out.println ( "imagem " + nomeArquivo + " nao existe");
 		}
 	}
-	
-	
-	
-	
-	
-	
 
-	
+
+
+
+
+
+
+
 	public BufferedImage getImagemDada() {
 		return imagemDada;
 	}
-	
+
 	//*******************************************************************************************
 	public int getNLin()
 	{
@@ -272,7 +286,7 @@ public class ControlarImagem {
 	}
 
 	//*******************************************************************************************
-	
+
 	public int getLin()
 	{
 		return ( nLinImagem );
@@ -283,6 +297,11 @@ public class ControlarImagem {
 	{
 		return ( nColImagem );
 	}
-	
+
 	//*******************************************************************************************
+
+
+	public void setDadosDigital(int[][] dadosDigital) {
+		this.dadosDigital = dadosDigital;
+	}
 }

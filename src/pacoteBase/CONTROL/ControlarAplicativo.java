@@ -5,6 +5,7 @@ import pacoteBase.MODEL.GaborFiltro;
 import pacoteBase.MODEL.ImageUtils;
 import pacoteBase.MODEL.ImpressaoDigital;
 import pacoteBase.MODEL.Morfologia;
+import pacoteBase.MODEL.MorfologiaPreenchimentoBuraco;
 import pacoteBase.MODEL.MorfologiaEsqueleto;
 import pacoteBase.VIEW.*;
 import java.awt.Graphics;
@@ -77,14 +78,19 @@ public class ControlarAplicativo implements ActionListener {
 
 				char[][] temp = controleImagem.copiarImagem(imagemAtual);
 
-				imagemAtual = MorfologiaEsqueleto.aplicar(imagemAtual);
+				imagemAtual = /*ImageUtils.bufferedToBytes(
+						Morfologia.normalizar(
+								MorfologiaEsqueleto.aplicar(
+										Morfologia.binarizar(
+												controleImagem.transformarMatriz2Buffer(imagemAtual)))));*/
+						MorfologiaPreenchimentoBuraco.aplicar(imagemAtual);
 				pnCenario.limpaPainelCen();
 				controleImagem.mostrarImagem(temp, desenhoCentro);
 				pnCenario.limpaPainelDir();
 			}
 
 			if (pnCenario.isNewImageSelected())
-				imagemAtual = MorfologiaEsqueleto.aplicar(imagemAtual);
+				imagemAtual = MorfologiaPreenchimentoBuraco.aplicar(imagemAtual);
 
 			pnCenario.limpaPainelDir();
 			controleImagem.mostrarImagem(imagemAtual, desenhoDireita);	
@@ -128,7 +134,6 @@ public class ControlarAplicativo implements ActionListener {
 		} 
 		
 		if(comando.equals("botaoInverter") && estadoDesenho) {
-			System.out.println("Invertendo");
 			imagemAtual = ImageUtils.inverterBinaria(imagemAtual);
 			controleImagem.mostrarImagem(imagemAtual, desenhoDireita);
 		}
@@ -136,11 +141,23 @@ public class ControlarAplicativo implements ActionListener {
 		if(comando.equals("botaoReconhecerDigital") && estadoDesenho) {
 			BufferedImage bi = controleImagem.transformarMatriz2Buffer(imagemAtual);
 			
-			BufferedImage afinada = ImpressaoDigital.reconhecerTracos(bi);
-			if(afinada != null) {
-				imagemAtual = ImageUtils.bufferedToBytes(afinada);
+			int[][] dadosDigital = ImpressaoDigital.reconhecerTracos(bi);
+			if(dadosDigital != null) {
+				controleImagem.setDadosDigital(dadosDigital);
 				controleImagem.mostrarImagem(imagemAtual, desenhoDireita);
 				
+				int[] ocorrencias = new int[15];
+				for(int i = 0; i < ocorrencias.length; i++)
+					ocorrencias[i] = 0;
+				
+				for(int i =0; i < dadosDigital.length; i++) {
+					for(int j = 0; j < dadosDigital[0].length; j++) {
+						ocorrencias[dadosDigital[i][j]]++;
+					}
+				}
+				
+				for(int i = 0; i < ocorrencias.length; i++)
+					System.out.println(String.format("%d - %d ocorrencias", i, ocorrencias[i]));
 				
 			}
 		}
